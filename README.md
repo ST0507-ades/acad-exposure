@@ -233,6 +233,10 @@ We will modify the page such that when it scrolls to the bottom, the next page w
         const query = `SELECT * FROM ..... LIMIT 10 OFFSET $1`
         const params = [offset];
         ...
+            return res.json({
+                offset: offset * 10,
+                ...
+            })
     })
     ```
 
