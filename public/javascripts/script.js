@@ -30,9 +30,27 @@ document.addEventListener('DOMContentLoaded', function () {
             isFetching = true;
             loadingSkeleton.classList.add('loading');
             // Replace the following 3 lines
-            setTimeout(() => {
-                loadingSkeleton.classList.remove('loading');
-            }, 2000);
+            fetch(`/data?offset=${offset}`) // Q1: Which step is this?
+                .then(function (response) {
+                    // Q2: Which step is this?
+                    return response.json();
+                })
+                .then(function (json) {
+                    // Q3: Which step is this?
+                    offset = json.offset;
+                    data = json.data;
+                    for (let i = 0; i < data.length; i++) {
+                        const item = data[i];
+                        addItem(item);
+                    }
+                })
+                .catch(function (error) {
+                    alert(error.message);
+                })
+                .finally(() => {
+                    isFetching = false;
+                    loadingSkeleton.classList.remove('loading');
+                });
         }
     };
 });
