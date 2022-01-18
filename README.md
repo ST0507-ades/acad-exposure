@@ -178,8 +178,12 @@ We will modify the page such that when it scrolls to the bottom, the next page w
 
     ```js
     window.onscroll = function () {
-        if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-            alert('Scrolled to end of page!');
+        const isEndOfpage = ...
+        if (isInitialFetched && isEndOfPage) {
+            if (isFetching) return;
+            isFetching = true;
+            loadingSkeleton.classList.add('loading');
+            ...
         }
     };
     ```
@@ -214,7 +218,7 @@ We will modify the page such that when it scrolls to the bottom, the next page w
 4. Find the function in the Server that handles that request (`GET /data`)
 
     ```js
-    app.get('/data', function (...) {
+    app.get('/data', (...) => {
         ...
     })
     ```
@@ -222,7 +226,7 @@ We will modify the page such that when it scrolls to the bottom, the next page w
 5. Modify that function accordingly (What is this change doing?)
 
     ```js
-    app.get('/data', function (req, res, next) {
+    app.get('/data', (req, res, next) => {
         const offset = req.query.offset || 0;
         ...
         const sql = `SELECT * FROM ..... LIMIT 10 OFFSET $1`
