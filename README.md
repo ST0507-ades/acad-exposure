@@ -187,32 +187,27 @@ We will modify the page such that when it scrolls to the bottom, the next page w
 2. Add the following code in the function, in the part where it is executed only when you've scrolled to the bottom (Which steps, A to I, does this code cover?)
 
     ```js
-    if(/* is end of page */) {
-        if (isFetching) return;
-        isFetching = true;
-        loadingAnimation.hidden = false;
-        fetch(`/data?offset=${offset}`) // Q1: Which step is this?
-            .then(function (response) {
-                // Q2: Which step is this?
-                response.json();
-            })
-            .then(function (json) {
-                // Q3: Which step is this?
-                offset = json.offset;
-                data = json.data;
-                for (let i = 0; i < data.length; i++) {
-                    const item = data[i];
-                    addItem(item);
-                }
-            })
-            .catch(function (error) {
-                alert(error.message);
-            })
-            .finally(() => {
-                isFetching = false;
-                loadingAnimation.hidden = true;
-            });
-    }
+    fetch(`/data?offset=${offset}`) // Q1: Which step is this?
+        .then(function (response) {
+            // Q2: Which step is this?
+            return response.json();
+        })
+        .then(function (json) {
+            // Q3: Which step is this?
+            offset = json.offset;
+            data = json.data;
+            for (let i = 0; i < data.length; i++) {
+                const item = data[i];
+                addItem(item);
+            }
+        })
+        .catch(function (error) {
+            alert(error.message);
+        })
+        .finally(() => {
+            isFetching = false;
+            loadingSkeleton.classList.remove('loading');
+        });
     ```
 
 3. Observe the website. What's the problem?
@@ -230,11 +225,11 @@ We will modify the page such that when it scrolls to the bottom, the next page w
     app.get('/data', function (req, res, next) {
         const offset = req.query.offset || 0;
         ...
-        const query = `SELECT * FROM ..... LIMIT 10 OFFSET $1`
+        const sql = `SELECT * FROM ..... LIMIT 10 OFFSET $1`
         const params = [offset];
         ...
             return res.json({
-                offset: offset * 10,
+                offset: +offset + rows.length, // Why +offset?
                 ...
             })
     })
