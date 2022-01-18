@@ -156,15 +156,15 @@ participant  Website
 participant  Server
 participant  Database
 
-Browser -> Server: A
-Server --> Browser: B
-Browser -> Website: C
-Website -> Server: D
-Server -> Database: E
-Database -> Database: F
-Database --> Server: G
-Server --> Website: H
-Website -> Website: I
+Browser -> Server: (A)
+Server --> Browser: (B)
+Browser -> Website: (C)
+Website -> Server: (D)
+Server -> Database: (E)
+Database -> Database: (F)
+Database --> Server: (G)
+Server --> Website: (H)
+Website -> Website: (I)
 @enduml
 ```
 
