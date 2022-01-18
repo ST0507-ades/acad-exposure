@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Acad Exposure</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" />
+
+        <link rel="stylesheet" href="stylesheets/style.css" />
+        <script src="javascripts/script.js"></script>
+    </head>
+    <body>
+        <div id="app" class="columns">
+            <div class="column" id="tweets"></div>
+        </div>
+        <template id="tweet-template">
+            <div class="tweet">
+                <div class="box">
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-64x64">
+                                <img class="tweet-img" alt="Image" />
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong class="tweet-name"></strong>
+                                    <small class="tweet-handle"></small>
+                                    <br />
+                                    <span class="tweet-tweet"></span>
+                                </p>
+                            </div>
+                            <div class="level-left">
+                                <a class="level-item">
+                                    <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                                    <span class="likes tweet-likes"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </template>
+    </body>
+</html>
