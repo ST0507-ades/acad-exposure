@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let isFetching = false;
     window.onscroll = function () {
-        if (isInitialFetched && Math.ceil(window.innerHeight + window.pageYOffset) >= document.body.scrollHeight) {
+        const isEndOfPage = Math.ceil(window.innerHeight + window.pageYOffset) >= document.body.scrollHeight;
+        if (isInitialFetched && isEndOfPage) {
             if (isFetching) return;
             isFetching = true;
             loadingSkeleton.classList.add('loading');
