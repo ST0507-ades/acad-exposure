@@ -1,9 +1,10 @@
 let isInitialFetched = false;
+let offset = 0;
 document.addEventListener('DOMContentLoaded', function () {
     const tweetsDom = document.querySelector('#tweets');
     const tweetTemplate = document.querySelector('#tweet-template').content.firstElementChild;
     const loadingSkeleton = document.querySelector('#skeleton');
-    function addTweet(tweet) {
+    function addItem(tweet) {
         const tweetDom = tweetTemplate.cloneNode(true);
         tweetDom.querySelector('.tweet-name').textContent = tweet.name;
         tweetDom.querySelector('.tweet-handle').textContent = `@${tweet.handle}`;
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fetch('/data')
         .then((response) => response.json())
-        .then((json) => json.data.forEach(addTweet))
+        .then((json) => json.data.forEach(addItem))
         .finally(() => {
             isInitialFetched = true;
             loadingSkeleton.classList.remove('loading');

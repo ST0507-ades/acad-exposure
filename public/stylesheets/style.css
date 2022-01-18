@@ -5,10 +5,19 @@ body {
     background: #e6ecf1;
 }
 
+.center {
+    margin: 0 auto;
+}
+
+.column:empty {
+    flex: 0;
+}
+
 #app {
     height: 100%;
     padding-top: 0px;
     text-align: center;
+    flex-direction: column;
 }
 
 #app .button {
