@@ -9,13 +9,14 @@ app.use(express.json()); // What is this for?
 app.use(express.static(path.join(__dirname, 'public'))); // What is this for?
 
 app.get('/data', (req, res, next) => {
-    const sql = `SELECT * FROM data_table LIMIT 10`;
-    const params = [];
+    const offset = req.query.offset;
+    const sql = `SELECT * FROM data_table LIMIT 10 OFFSET $1`;
+    const params = [offset];
     return query(sql, params)
         .then((result) => {
             const rows = result.rows; // Which step is this?
             return res.json({
-                offset: 10,
+                offset: +offset + rows.length,
                 data: rows,
             }); // Which step is this?
         })
